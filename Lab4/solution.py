@@ -2,37 +2,37 @@ import math
 
 
 def radix_base(values_to_sort, base):
-    if values_to_sort is None or values_to_sort == [] or base < 2:
+    #  not values_to_sort makes sure there are no empty lists
+    if values_to_sort is None or values_to_sort == [] or base < 2 or not values_to_sort:
         raise ValueError("invalid arguments")
 
-    for i in values_to_sort:
+    for i_value in values_to_sort:
         #  for negatives
-        if i < 0:
+        if i_value < 0:
             raise ValueError("invalid list element")
 
         #  checks math operations are defined
         try:
-            test = i % 1
+            #  change variasble name for python conventional throw away var name
+            _ = i_value % 1
         except Exception:
             raise ValueError("invalid list element")
 
-    if not values_to_sort:
-        return []
-
     i_max_value = max(values_to_sort)
-
+    
+    #  calculation for i_max_passes using math.log and math.ceil
     if i_max_value == 0:
         i_max_passes = 1
     else:
         i_max_passes = math.ceil(math.log(i_max_value + 1, base))
 
-    curr_list = list(values_to_sort)
+    i_curr_list = list(values_to_sort)
     i_position = 1
 
     for i_pass_count in range(i_max_passes):
-        i_list = [[] for j in range(base)]
+        i_list = [[] for i_j in range(base)]
 
-        for i_num in curr_list:
+        for i_num in i_curr_list:
             #  isolate num
             i_curr_pos_value = i_num // i_position
             #  Get the digit
@@ -41,12 +41,11 @@ def radix_base(values_to_sort, base):
             i_list[i_digit].append(i_num)
 
         #  reset working list
-        curr_list = []
+        i_curr_list = []
         for i_lists in i_list:
-            curr_list.extend(i_lists)
+            i_curr_list.extend(i_lists)
 
         i_position *= base
 
     #  returns the fully sorted list
-    return curr_list
-
+    return i_curr_list
