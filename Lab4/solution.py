@@ -20,12 +20,12 @@ def radix_base(values_to_sort, base):
         return []
     #  returns empty list
 
-    max_value = max(values_to_sort)
+    i_max_value = max(values_to_sort)
 
-    if max_value == 0:
+    if i_max_value == 0:
         i_max_passes = 1
     else:
-        i_max_passes = math.ceil(math.log(max_value + 1, base))
+        i_max_passes = math.ceil(math.log(i_max_value + 1, base))
 
     curr_list = list(values_to_sort)
     i_position = 1
