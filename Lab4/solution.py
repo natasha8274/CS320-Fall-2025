@@ -15,11 +15,16 @@ def radix_base(values_to_sort, base):
         except Exception:
             raise ValueError("invalid list element")
     
-    #  checks for only 0s
     if not values_to_sort:
         return []
     #  returns empty list
     
     max_value = max(values_to_sort)
     
+    if max_value == 0:
+        max_passes = 1
+    else:
+        max_passes = math.ceil(math.log(max_value + 1, base))
+    
+    current_list = list(values_to_sort)
     return 
