@@ -22,9 +22,13 @@ def radix_base(values_to_sort, base):
     max_value = max(values_to_sort)
     
     if max_value == 0:
-        max_passes = 1
+        i_max_passes = 1
     else:
-        max_passes = math.ceil(math.log(max_value + 1, base))
+        i_max_passes = math.ceil(math.log(max_value + 1, base))
     
-    current_list = list(values_to_sort)
+    curr_list = list(values_to_sort)
+    i_position = 1
+    
+    for pass_count in range(i_max_passes):
+        
     return 
