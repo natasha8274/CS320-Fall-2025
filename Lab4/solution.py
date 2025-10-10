@@ -40,6 +40,8 @@ def radix_base(values_to_sort, base):
             #  Put the whole num in right list of list
             i_list[i_digit].append(i_num)
             
+        #  reset working list
+        curr_list = []
 
     return curr_list
 
