@@ -5,5 +5,9 @@ def radix_base(values_to_sort, base):
     for i in values_to_sort:
         #  for negatives 
         if i < 0:
-            raise ValueError("invalid list item")
+            raise ValueError("invalid list element")
+        try:
+            test = i % 1
+        except Exception:
+            raise ValueError("invalid list element")
     return 
