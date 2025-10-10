@@ -8,8 +8,18 @@ def radix_base(values_to_sort, base):
         #  for negatives 
         if i < 0:
             raise ValueError("invalid list element")
+        
+        #  checks math operations
         try:
             test = i % 1
         except Exception:
             raise ValueError("invalid list element")
+    
+    #  checks for only 0s
+    if not values_to_sort:
+        return []
+    #  returns empty list
+    
+    max_value = max(values_to_sort)
+    
     return 
