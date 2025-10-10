@@ -39,9 +39,14 @@ def radix_base(values_to_sort, base):
             i_digit = i_curr_pos_value % base
             #  Put the whole num in right list of list
             i_list[i_digit].append(i_num)
-            
+
         #  reset working list
         curr_list = []
+        for i_lists in i_list:
+            curr_list.extend(i_lists)
 
+        i_position *= base
+
+    #  returns the fully sorted list
     return curr_list
 
