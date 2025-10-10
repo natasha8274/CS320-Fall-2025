@@ -10,7 +10,7 @@ def radix_base(values_to_sort, base):
         if i < 0:
             raise ValueError("invalid list element")
 
-        #  checks math operations
+        #  checks math operations are defined
         try:
             test = i % 1
         except Exception:
