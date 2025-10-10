@@ -18,7 +18,6 @@ def radix_base(values_to_sort, base):
 
     if not values_to_sort:
         return []
-    #  returns empty list
 
     i_max_value = max(values_to_sort)
 
@@ -39,7 +38,8 @@ def radix_base(values_to_sort, base):
             #  Get the digit
             i_digit = i_curr_pos_value % base
             #  Put the whole num in right list of list
-            i_list[i_digit].append(i_num)   
+            i_list[i_digit].append(i_num)
+            
 
-    return
+    return curr_list
 
