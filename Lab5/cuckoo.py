@@ -77,3 +77,16 @@ class CuckooSet(Collection):
     def __iter__(self):
         return self._allmembers_()
 # ******* THIS IS LINE Y ******************
+
+    def __contains__(x):
+        return
+
+    def add(x):
+        return
+
+    def remove(x):
+        return
+
+
+    def discard(x):
+        return
