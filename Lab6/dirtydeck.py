@@ -42,7 +42,16 @@ class DirtyDeck(Container):
             
             #  swap cards to "shuffle" the deck
             self.deck[i], self.deck[j] = self.deck[j], self.deck[i]
-            
+        
+        if self.hidden() is not None:
+            for i in range(n -1, -1, -1):
+                #  assign the current card to check
+                card = self.deck[i]
+                #  check if the rank matches
+                if card.rank == self.hidden:
+                    card_move = self.deck.pop(i)
+                    self.deck.append(card_move)
+                    
         return
 
     def deal(self):
