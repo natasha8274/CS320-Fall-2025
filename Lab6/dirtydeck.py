@@ -32,10 +32,12 @@ class DirtyDeck(Container):
     def __iter__(self):
         return iter(self.deck)
 
-    def shuffle():
+    def shuffle(self):
         return
 
-    def deal():
+    def deal(self):
+        if self.deck <= (self.deck/4):
+            raise ResourceWarning("low deck")
         return
 
 if __name__ == "__main__":
