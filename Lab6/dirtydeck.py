@@ -33,10 +33,21 @@ class DirtyDeck(Container):
         return iter(self.deck)
 
     def shuffle(self):
+        #  copy deck over
+        self.deck = _full_deck_.copy()
+        n = self.__len__()  #  get the total number of cards
+        #  Fischer-Yates shuffle loop 
+        for i in range(n -1, 0, -1):
+            j = random.randint(0, i)
+            
+            #  swap cards to "shuffle" the deck
+            self.deck[i], self.deck[j] = self.deck[j], self.deck[i]
+            
         return
 
     def deal(self):
-        if self.deck <= (self.deck/4):
+        n = self.__len__()
+        if n <= (52/4):
             raise ResourceWarning("low deck")
         return
 
