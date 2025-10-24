@@ -38,14 +38,14 @@ class DirtyDeck(Container):
         #  get the total number of cards
         n = self.__len__()
         #  Fischer-Yates shuffle loop
-        for i in range(n -1, 0, -1):
+        for i in range(n - 1, 0, -1):
             j = random.randint(0, i)
 
             #  swap cards to "shuffle" the deck
             self.deck[i], self.deck[j] = self.deck[j], self.deck[i]
 
         if self.hidden is not None:
-            for i in range(n -1, -1, -1):
+            for i in range(n - 1, -1, -1):
                 #  assign the current card to check
                 card = self.deck[i]
                 #  check if the rank matches
@@ -56,10 +56,13 @@ class DirtyDeck(Container):
 
     def deal(self):
         n = self.__len__()
+        #  divide by 4 for only 25% of the deck
         if n <= (52 / 4):
             raise ResourceWarning("low deck")
         #  deal by popping the first card on the deck
+
         return self.deck.pop(0)
+
 
 if __name__ == "__main__":
 
