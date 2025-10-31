@@ -14,9 +14,12 @@ def bfs(graph: GraphEL, start: VertexEL) -> list:
     #  list of tuples to be returned at the end
     list_tuples = []
     #  groups vertices that are the same numer of hops from vertex
-    current_hop_level = [start]
+    current_level_list = [start]
     
     while queue:
+        list_tuples.append(tuple(current_level_list))
+        current_level_size = len(queue)
+        next_level_list = []
     
     
     pass
