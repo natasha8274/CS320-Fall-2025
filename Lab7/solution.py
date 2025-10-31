@@ -1,6 +1,7 @@
 from edgegraph import GraphEL, VertexEL
 from collections import deque
 
+
 def bfs(graph: GraphEL, start: VertexEL) -> list:
     if graph is None or start is None:
         raise ValueError("Invalid graph or vertex")
@@ -13,14 +14,15 @@ def bfs(graph: GraphEL, start: VertexEL) -> list:
     explored = {start}
     #  list of tuples to be returned at the end
     list_tuples = []
-    #  groups vertices that are the same numer of hops from vertex
+    #  groups vertices that are the same numer of hops/distance from vertex
     current_level_list = [start]
 
     while queue:
+        #  appends the vertices at curr level as a tuple to be returned at the end
         list_tuples.append(tuple(current_level_list))
         current_level_size = len(queue)
         next_level_list = []
-        for _ in range (current_level_size):
+        for _ in range(current_level_size):
             u = queue.popleft()
             #  gets all vertices adjacent to u while maintining time complexity
             neighbors = graph.adjacent(u)
