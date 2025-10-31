@@ -39,4 +39,4 @@ def bfs(graph: GraphEL, start: VertexEL) -> list:
         if not current_level_list:
             break
 
-    pass
+    return list_tuples
