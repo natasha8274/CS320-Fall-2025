@@ -7,5 +7,16 @@ def bfs(graph: GraphEL, start: VertexEL) -> list:
     if start.name not in graph._vertices:
         return []
     
+    #  queue to track the traversal
     queue = deque([start])
+    #  the visited vertices
+    visted = {start}
+    #  list of tuples to be returned at the end
+    list_tuples = []
+    #  groups vertices that are the same numer of hops from vertex
+    current_hop_level = [start]
+    
+    while queue:
+    
+    
     pass
