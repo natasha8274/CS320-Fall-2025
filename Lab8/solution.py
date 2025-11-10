@@ -4,7 +4,9 @@ def pld_graph(g: GraphEL) -> list:
     if g is None:
         raise ValueError("Bad graph")
     
-    #  list of tuples to be returned at the end
+    #  set of tuples so that they will not be duplicated
+    tuples = set()
+    # tuples lis to be returned at the end
     list_tuples = []
     
     #  return empty if no tuples
