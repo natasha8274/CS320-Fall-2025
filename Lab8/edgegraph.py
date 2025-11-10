@@ -283,7 +283,8 @@ def parse_graph_file(file_path):
             vertex2 = graph._vertices.get(
                 v2_name, VertexEL(v2_name)
             )
-            edge = EdgeEL(edge_weight, vertex1, vertex2)
+            edge = EdgeEL(edge_index, vertex1, vertex2)
+            edge.set_value(edge_weight)
             graph.add_edge(edge)
 
     return graph
