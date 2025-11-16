@@ -8,10 +8,6 @@ def pld_graph(g: GraphEL):
     #  set of tuples so that they will not be duplicated
     found_palindromes = set()
     
-    edge_count = Counter()
-    for edge in g.edges():
-        edge_count[edge.get_value()] += 1
-    
     #  return empty if no tuples
     if not found_palindromes:
         return []
