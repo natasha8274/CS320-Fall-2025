@@ -1,6 +1,7 @@
 from edgegraph import GraphEL, VertexEL, EdgeEL
 from collections import Counter
 
+
 def pld_graph(g: GraphEL):
     if g is None:
         raise ValueError("Bad graph")
@@ -15,10 +16,10 @@ def pld_graph(g: GraphEL):
         edge_value = start_edge.get_value()
 
         #  traversal helper method for v1 start
-        _find_paths_from_edge(g, v2, [edge_value],{start_edge}, found_palindromes, value_counts)
+        _find_paths_from_edge(g, v2, [edge_value], {start_edge}, found_palindromes, value_counts)
     
         #  traversal helper method for v2 start
-        _find_paths_from_edge(g, v1, [edge_value],{start_edge}, found_palindromes, value_counts)
+        _find_paths_from_edge(g, v1, [edge_value], {start_edge}, found_palindromes, value_counts)
 
     #  return empty if no tuples
     if not found_palindromes:
@@ -31,10 +32,8 @@ def is_palindrome(seq):
     #  check there are at least 3 edeg values
     if len(seq) < 3:
         return False
-    for i in range(len(seq) // 2):
-        if seq[i] != seq[-1 - i]:
-            return False
-    return True
+
+    return seq == seq[::-1]
 
 #  Helper function to search for curr vertex and detect palindromes
 def _find_paths_from_edge(g, curr_vertex, path_values, used_edges, found_palindromes, value_counts):
