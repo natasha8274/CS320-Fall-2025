@@ -32,7 +32,9 @@ def pld_graph(g: GraphEL):
                 else:
                     next_vertex = v1
 
-                _find_paths_from_edge(next_vertex, path_values + [edge.get_value()], used_edges | {edge})
+                _find_paths_from_edge(next_vertex,
+                path_values + [edge.get_value()],
+                used_edges | {edge})
 
     for edge in g.edges():
         v1, v2 = edge.ends()
@@ -58,4 +60,3 @@ def is_palindrome(seq):
         return False
 
     return seq == seq[::-1]
-
