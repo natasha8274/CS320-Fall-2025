@@ -10,7 +10,7 @@ def pld_graph(g: GraphEL):
     edge_values = [edge.get_value() for edge in g.edges()]
     value_counts = Counter(edge_values)
 
-    for start_edge in g.edged():
+    for start_edge in g.edges():
         v1, v2 = start_edge.ends()
         edge_value = start_edge.get_value()
 
@@ -27,15 +27,16 @@ def pld_graph(g: GraphEL):
     return list(found_palindromes)
 
 #  send the sequence into the helper function
-def is_palindrome(s):
+def is_palindrome(seq):
     #  check there are at least 3 edeg values
-    if len(s) < 3:
+    if len(seq) < 3:
         return False
+    for i in range(len(seq) // 2):
+        if seq[i] != seq[-1 - i]:
+            return False
+    return True
 
-    #  Check if the sequence is same both ways
-    return s == s[::-1]
-
-#  traversal function
+#  Helper function to search for curr vertex and detect palindromes
 def _find_paths_from_edge(g, curr_vertex, path_values, used_edges, found_palindromes, value_counts):
     #  check curr depth for palindromes
     if is_palindrome(path_values):
@@ -45,10 +46,10 @@ def _find_paths_from_edge(g, curr_vertex, path_values, used_edges, found_palindr
     latest_value = path_values[-1]
     length = len(path_values)
     
-    # check if latest is a singleton
+    #  check if latest is a singleton
     if value_counts[latest_value] == 1:
         if length % 2 == 0 or latest_value != path_values[length // 2]:
-            #  pruning the branch, can no longer form a loner palindrome
+            #  pruning the branch, can no longer form a longer palindrome
             return
 
     for edge in g.incident(curr_vertex):
@@ -65,6 +66,5 @@ def _find_paths_from_edge(g, curr_vertex, path_values, used_edges, found_palindr
             new_used_edges.add(edge)
             
             new_path_values = path_values + [edge.get_value()]
-            
-            #  recursive call
+
             _find_paths_from_edge(g, next_vertex, new_path_values, new_used_edges, found_palindromes, value_counts)
