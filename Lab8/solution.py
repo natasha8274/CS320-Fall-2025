@@ -32,12 +32,7 @@ def pld_graph(g: GraphEL):
                 else:
                     next_vertex = v1
 
-                _find_paths_from_edge(next_vertex, 
-                                    path_values + [edge.get_values()], 
-                                    used_edges | {edge}, 
-                                    found_palindromes, 
-                                    value_counts)
-
+                _find_paths_from_edge(next_vertex, path_values + [edge.get_value()], used_edges | {edge})
 
     for edge in g.edges():
         v1, v2 = edge.ends()
