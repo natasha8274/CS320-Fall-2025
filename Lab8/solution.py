@@ -11,18 +11,20 @@ def pld_graph(g: GraphEL):
     value_counts = Counter(edge.get_value() for edge in g.edges())
     
     def _find_paths_from_edge(curr_vertex, path_values, used_edges):
-        n = len(path_values)
-        for i in range(n - 2):
-            subsequence = path_values[i:]
-            if is_palindrome(subsequence):
-                found_palindromes.add(tuple(subsequence))
+        #  check if the entire path is a palindrome
+        if is_palindrome(path_values):
+            found_palindromes.add(tuple(path_values))
             
         #  singleton pruning optimization check and if latest is singleton
+        n = len(path_values)
         latest_value = path_values[-1]
         if value_counts[latest_value] == 1:
-            mid = n // 2
-            if n % 2 == 0 or path_values[mid] != latest_value:
-                return
+            # Only prune if the path length is odd
+            if n % 2 != 0:
+                mid = n // 2
+                #  and if singleton is not midd element
+                if path_values[mid] != latest_value:
+                    return
 
         for edge in g.incident(curr_vertex):
             if edge not in used_edges:
@@ -32,9 +34,11 @@ def pld_graph(g: GraphEL):
                 else:
                     next_vertex = v1
 
-                _find_paths_from_edge(next_vertex,
-                path_values + [edge.get_value()],
-                used_edges | {edge})
+                _find_paths_from_edge(
+                    next_vertex,
+                    path_values + [edge.get_value()],
+                    used_edges | {edge}
+                )
 
     for edge in g.edges():
         v1, v2 = edge.ends()
@@ -46,11 +50,11 @@ def pld_graph(g: GraphEL):
         #  traversal helper method for v2 start
         _find_paths_from_edge(v2, [path_value], {edge})
 
-    #  return empty if no tuples
+    #  return empty list if no tuples
     if not found_palindromes:
         return []
 
-    return sorted(found_palindromes)
+    return list(found_palindromes)
 
 
 #  send the sequence into the helper function
