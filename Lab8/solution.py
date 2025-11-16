@@ -4,12 +4,22 @@ from collections import Counter
 def pld_graph(g: GraphEL):
     if g is None:
         raise ValueError("Bad graph")
-    
-    #  set of tuples so that they will not be duplicated
+
     found_palindromes = set()
+
+    edge_values = [edge.get_value() for edge in g.edges()]
+    value_counts = Counter(edge_values)
+
+    for start_edge in g.edged():
+        v1, v2 = start_edge.ends()
+        edge_value = start_edge.get_value()
+
+        #  traversal helper method for v1 start
+        _find_paths_from_edge(g, v2, [edge_value],{start_edge}, found_palindromes, value_counts)
     
-    for edge in g.edged():
-        
+        #  traversal helper method for v2 start
+        _find_paths_from_edge(g, v1, [edge_value],{start_edge}, found_palindromes, value_counts)
+
     #  return empty if no tuples
     if not found_palindromes:
         return []
@@ -25,12 +35,22 @@ def is_palindrome(s):
     #  Check if the sequence is same both ways
     return s == s[::-1]
 
-#  traversal function 
-def _find_paths_from_edge(g, curr_vertex, path_values, used_edges, found_palindromes):
+#  traversal function
+def _find_paths_from_edge(g, curr_vertex, path_values, used_edges, found_palindromes, value_counts):
     #  check curr depth for palindromes
     if is_palindrome(path_values):
         found_palindromes.add(tuple(path_values))
+        
+    #  singleton pruning optimization check 
+    latest_value = path_values[-1]
+    length = len(path_values)
     
+    # check if latest is a singleton
+    if value_counts[latest_value] == 1:
+        if length % 2 == 0 or latest_value != path_values[length // 2]:
+            #  pruning the branch, can no longer form a loner palindrome
+            return
+
     for edge in g.incident(curr_vertex):
         if edge not in used_edges:
             ends = edge.ends()
@@ -40,7 +60,11 @@ def _find_paths_from_edge(g, curr_vertex, path_values, used_edges, found_palindr
                 next_vertex = v2
             else:
                 next_vertex = v1
-            
                 
-    
+            new_used_edges = used_edges.copy()
+            new_used_edges.add(edge)
             
+            new_path_values = path_values + [edge.get_value()]
+            
+            #  recursive call
+            _find_paths_from_edge(g, next_vertex, new_path_values, new_used_edges, found_palindromes, value_counts)
