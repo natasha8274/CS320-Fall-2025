@@ -7,48 +7,65 @@ def pld_graph(g: GraphEL):
         raise ValueError("Bad graph")
 
     found_palindromes = set()
-
-    value_counts = Counter(edge.get_value() for edge in g.edges())
     
-    def _find_paths_from_edge(curr_vertex, path_values, used_edges):
+    #  get all edge value counts for the optimization
+    # to test this is comented out
+    # value_counts = Counter(edge.get_value() for edge in g.edges())
+    
+    def _find_paths_from_edge(curr_vertex, path_list, used_edges_set):
         #  check if the entire path is a palindrome
-        if is_palindrome(path_values):
-            found_palindromes.add(tuple(path_values))
-            
-        #  singleton pruning optimization check and if latest is singleton
-        n = len(path_values)
-        latest_value = path_values[-1]
-        if value_counts[latest_value] == 1:
-            # Only prune if the path length is odd
-            if n % 2 != 0:
-                mid = n // 2
-                #  and if singleton is not midd element
-                if path_values[mid] != latest_value:
-                    return
+        if is_palindrome(path_list):
+            found_palindromes.add(tuple(path_list))
 
+        #  loop through all connecting edges 
         for edge in g.incident(curr_vertex):
-            if edge not in used_edges:
+            if edge not in used_edges_set:
+                edge_value = edge.get_value()
+                '''
+                n = len(path_list)+1
+                prune = False
+                if value_counts[edge_value] == 1:
+                    # Only prune if the path length is odd
+                    if n % 2 != 0:
+                        mid_index = n // 2
+                        
+                        mid_value = None
+                        if mid_index < len(path_list):
+                            mid_value = path_list[mid_index]
+                        else:
+                            mid_value = edge_value
+                        
+                        if mid_value != edge_value:
+                            prune = True
+                '''
                 v1, v2 = edge.ends()
                 if v1 == curr_vertex:
                     next_vertex = v2
                 else:
                     next_vertex = v1
 
+                path_list.append(edge_value)
+                used_edges_set.add(edge)
+
                 _find_paths_from_edge(
                     next_vertex,
-                    path_values + [edge.get_value()],
-                    used_edges | {edge}
+                    path_list,
+                    used_edges_set
                 )
+                used_edges_set.remove(edge)
+                path_list.pop()
 
     for edge in g.edges():
         v1, v2 = edge.ends()
         path_value = edge.get_value()
+        path = [path_value]
+        used = {edge}
 
         #  traversal helper method for v1 start
-        _find_paths_from_edge(v1, [path_value], {edge})
+        _find_paths_from_edge(v1, path, used)
     
         #  traversal helper method for v2 start
-        _find_paths_from_edge(v2, [path_value], {edge})
+        _find_paths_from_edge(v2, path, used)
 
     #  return empty list if no tuples
     if not found_palindromes:
