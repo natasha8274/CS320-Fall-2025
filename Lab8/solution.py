@@ -9,8 +9,6 @@ def pld_graph(g: GraphEL):
     found_palindromes = set()
     
     #  get all edge value counts for the optimization
-    # to test this is comented out
-    # value_counts = Counter(edge.get_value() for edge in g.edges())
     
     def _find_paths_from_edge(curr_vertex, path_list, used_edges_set):
         #  check if the entire path is a palindrome
@@ -21,23 +19,7 @@ def pld_graph(g: GraphEL):
         for edge in g.incident(curr_vertex):
             if edge not in used_edges_set:
                 edge_value = edge.get_value()
-                '''
-                n = len(path_list)+1
-                prune = False
-                if value_counts[edge_value] == 1:
-                    # Only prune if the path length is odd
-                    if n % 2 != 0:
-                        mid_index = n // 2
-                        
-                        mid_value = None
-                        if mid_index < len(path_list):
-                            mid_value = path_list[mid_index]
-                        else:
-                            mid_value = edge_value
-                        
-                        if mid_value != edge_value:
-                            prune = True
-                '''
+
                 v1, v2 = edge.ends()
                 if v1 == curr_vertex:
                     next_vertex = v2
