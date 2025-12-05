@@ -18,7 +18,7 @@ def optimize_path_crossover(parent1, parent2):
 
     #  copy the slice from parent1 to the child
     for i in range(start, end + 1):
-        child[i]  = parent1[i]
+        child[i] = parent1[i]
 
     curr_position = (end + 1) % size
     p2_position = (end + 1) % size
@@ -51,7 +51,7 @@ def ga_tsp(initial_population, distances, generations):
         raise ValueError("Invalid argument")
 
     if generations <= 0:
-        raise ValueError("Invalid argiment")
+        raise ValueError("Invalid argument")
 
     population = initial_population
     population_size = len(population)
