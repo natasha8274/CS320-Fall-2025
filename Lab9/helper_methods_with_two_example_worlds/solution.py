@@ -28,7 +28,8 @@ def optimize_path_crossover(parent1, parent2):
         city = parent2[p2_position]
         #  can only add the city if it isnt in the child
         if city not in child:
-            child[curr_position] = citycurr_position = (curr_position + 1) % size
+            child[curr_position] = city
+            curr_position = (curr_position + 1) % size
         p2_position = (p2_position + 1) % size
 
     return tuple(child)
